@@ -1,16 +1,12 @@
 <?php
-
 //Turn on error reporting -- this is critical!
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
 // Start a session
 session_start();
-
-
 //Require the autoload file
 require_once('vendor/autoload.php');
-
+require_once('model/data-layer.php');
 //Create an instance of the Base class
 $f3 = Base::instance();
 $f3->set('DEBUG', 3);
@@ -19,18 +15,15 @@ $f3->route('GET /', function() {
     $view = new Template();
     echo $view->render('views/home.html');
 });
-
-
 // Make a main order page
-$f3->route('GET /order', function() {
-
+$f3->route('GET /order', function($f3) {
+    $f3->set('meals', getMeals());
     $view = new Template();
     echo $view->render('views/form1.html');
 });
-
 // Make a order two page
-$f3->route('POST /order2', function() {
-
+$f3->route('POST /order2', function($f3) {
+    $f3->set('condiments', getCondiments());
     var_dump($_POST);
     if(isset($_POST['food'])){
         $_SESSION['food'] = $_POST['food'];
@@ -41,7 +34,6 @@ $f3->route('POST /order2', function() {
     $view = new Template();
     echo $view->render('views/order2.html');
 });
-
 // Make a summary route
 $f3->route('POST /summary', function() {
 //    echo "<p>POST:</p>";

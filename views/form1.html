@@ -2,6 +2,14 @@
 <body>
     <h1>Food Order</h1>
 <form method="post" action="order2">
+    <div>
+        <repeat group="{{ @meals }}" value="{{ @meal }}">
+            <label><input type="radio"
+            name="meal"
+            id="{{ @meal }}"
+            value="{{ @meal }}"> {{ ucfirst(@meal) }}</label><br>
+        </repeat>
+    </div>
     <label>What would you like to order?
     <input type="text" name="food">
     </label>

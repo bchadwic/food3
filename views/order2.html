@@ -1,13 +1,11 @@
 <include href="views/header.html"></include>
 <h1>This is the order page</h1>
 <form method="post" action="summary">
-    <label>Ketchup</label>
-    <input type="checkbox">
-    <label>Barbeque</label>
-    <input type="checkbox">
-    <label>Mustard</label>
-    <input type="checkbox">
-    <input type="submit" value="Place Order">
+    <repeat group="{{ @condiments }}" value="{{ @condiment }}">
+        <label>
+            <input type="checkbox" name="condiments[]" value="{{ @condiment }}"
+            ><b>{{ ucfirst(@condiment) }}</b></label><br>
+    </repeat>
 </form>
 </body>
 </html>
